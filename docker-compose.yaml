@@ -7,7 +7,6 @@ services:
       - jenkins
     ports:
       - '8080:8080'
-      # - '9080:9080'
     volumes:
       - 'jenkins_data:/var/jenkins_home'
       - /var/run/docker.sock:/var/run/docker.sock
@@ -16,6 +15,15 @@ services:
     image: jenkins-local-slave
     networks:
       - jenkins
+  git-server:
+    build: ./git-server/
+    image: git-local-server
+    volumes:
+      - ./git-server/seed-repos/:/git/seed-repos/
+    networks:
+      - jenkins
+    ports:
+      - '9418:9418'
 networks:
   jenkins:
 volumes:

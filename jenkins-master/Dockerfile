@@ -40,7 +40,8 @@ RUN /usr/local/bin/install-plugins.sh \
     ldap \
     email-ext \
     mailer \
-    jdk-tool
+    jdk-tool \
+    job-dsl
 
 COPY casc_configs/ /var/casc_configs/
 ENV CASC_JENKINS_CONFIG /var/casc_configs/

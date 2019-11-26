@@ -30,6 +30,7 @@ jenkins:
       - connector: attach
         dockerTemplateBase:
           image: "jenkins-local-slave:latest"
+          network: "jenkins-local_jenkins"
           volumes:
           - "/var/run/docker.sock:/var/run/docker.sock"
           volumesString: "/var/run/docker.sock:/var/run/docker.sock"
