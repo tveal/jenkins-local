@@ -1,0 +1,17 @@
+library(
+    identifier: 'yaml-pipelines-library@master',
+    retriever: modernSCM(
+        [
+            $class: 'GitSCMSource',
+            remote: 'git://git-server/yaml-pipelines-library',
+            // credentialsId: 'jenkins-creds-id-for-git-repo-auth'
+        ]
+    )
+)
+
+node('docker') { // label of your build-agent that has docker
+    stage('Checkout') {
+        checkout scm
+    }
+    yamlPipelines(this, readYaml(file: 'jenkins-pipelines.yml'))
+}
