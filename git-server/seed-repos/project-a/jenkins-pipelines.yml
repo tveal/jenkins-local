@@ -1,0 +1,24 @@
+docker:
+  image: node:8
+  additionalFlags: --user 1000:1000
+
+pipelines:
+  always:
+    - step:
+        name: Build
+        script:
+          - echo running build...
+          - node -v
+          - npm -v
+  pullRequests:
+    master:
+      - step:
+          name: Deploy to DEV
+          script:
+            - echo deploy to dev...
+  branches:
+    master:
+      - step:
+          name: Deploy to PROD
+          script:
+            - echo deploy to prod...

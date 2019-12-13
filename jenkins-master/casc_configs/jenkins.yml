@@ -56,3 +56,5 @@ security:
     enabled: false
   sSHD:
     port: -1
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
