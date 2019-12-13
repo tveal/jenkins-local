@@ -1,18 +1,2 @@
 jobs:
-  - script: >
-      job('testJob1') {
-          label('docker')
-          scm {
-              git {
-                remote {
-                  url('git://git-server/project-a')
-                }
-              }
-          }
-          triggers {
-              scm('H/15 * * * *')
-          }
-          steps {
-              shell('pwd && ls -la')
-          }
-      }
+  - file: /var/casc_configs/setup_jobs.groovy

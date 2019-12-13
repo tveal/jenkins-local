@@ -1,15 +1,16 @@
 # Quickly Spin Up Jenkins Locally
 
-More doc to come... but for now:
-
 **This is NOT in a production-usage state, as security realm is opened up for easier**
 **local dev**
 
 This project configures a base Jenkins with:
 - Jenkins master node (jenkins/jenkins:lts plus docker and preinstalled plugins)
 - Jenkins slave node (jenkinsci/slave:latest plus docker cli)
-- Configuration as Code, with Docker Cloud option for spinning up 'docker' labeled
-    build agents
+- Configuration as Code
+    - Docker Cloud option for spinning up 'docker' labeled build agents
+    - Seed Job: Using Job-DSL, creates a "seed/jobs" job that points to the
+        jenkins-local-dsl repo to generate more jobs; This way you can control
+        project jobs from the dsl repo
 - Local git server for testing with code repositories
 
 Prerequisites
@@ -55,3 +56,17 @@ On startup (aka, during `docker-compose up`), the git-server initiates git repos
 from the folders in the [git-server/seed-repos](git-server/seed-repos/). You can
 then clone the repo(s), change, commit, and push them as needed while the server
 is running. Restart the server and start over from the seed-state.
+
+## Stop/Start
+
+Currently, the git-server cannot handle start/stop of the container, so you have
+to make sure to remove the container before starting again; simply run:
+
+```bash
+docker-compose down
+```
+
+Then you can run the needful again:
+```bash
+docker-compose up
+```
