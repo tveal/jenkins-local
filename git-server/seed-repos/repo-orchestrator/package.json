@@ -4,8 +4,9 @@
   "description": "test project managing other repos as git submodules",
   "main": "index.js",
   "scripts": {
-    "sub:a": "npm --prefix npm-service-a run wait",
-    "sub:b": "npm --prefix npm-service-b run wait",
+    "sub:a": "npm --prefix npm-service-a run count:10",
+    "sub:b": "npm --prefix npm-service-b run count:10",
+    "dp:sub": "node index",
     "all": "concurrently 'npm:sub*'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

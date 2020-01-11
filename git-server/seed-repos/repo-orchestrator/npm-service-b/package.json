@@ -4,7 +4,9 @@
   "description": "test project for an npm project B",
   "main": "index.js",
   "scripts": {
-    "wait": "bash -c 'for i in {1..10}; do echo \"Project B: $i\"; sleep 1; done'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "count:10": "bash -c 'for i in {1..10}; do echo \"Project B: $i\"; sleep 1; done'",
+    "fail:5": "bash -c 'for i in {1..5}; do echo \"Project B: $i\"; sleep 1; done; echo \"Failed for test\"; exit 1;'",
+    "build": "npm run count:10",
+    "test": "echo \"No tests for this project\""
   }
 }
