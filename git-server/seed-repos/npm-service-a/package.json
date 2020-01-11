@@ -1,0 +1,10 @@
+{
+  "name": "npm-service-a",
+  "version": "1.0.0",
+  "description": "test project for an npm project A",
+  "main": "index.js",
+  "scripts": {
+    "wait": "bash -c 'for i in {1..10}; do echo \"Project A: $i\"; sleep 1; done'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

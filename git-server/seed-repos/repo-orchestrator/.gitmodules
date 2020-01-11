@@ -1,0 +1,6 @@
+[submodule "npm-service-a"]
+	path = npm-service-a
+	url = git://localhost/npm-service-a
+[submodule "npm-service-b"]
+	path = npm-service-b
+	url = git://localhost/npm-service-b

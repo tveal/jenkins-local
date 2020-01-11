@@ -70,3 +70,8 @@ Then you can run the needful again:
 ```bash
 docker-compose up
 ```
+
+## Repo Examples
+
+- [repo-orchestrator](doc/repo-orchestrator.md):
+    example of running tasks on git-submodules concurrently
