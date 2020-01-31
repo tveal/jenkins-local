@@ -152,3 +152,21 @@ pipelines:
           script:
             - DEPLOY_ENV=$PROD_ACCT npm run dp:prod
 ```
+
+## Replay in Jenkins
+
+Since this library runs commands from a yaml file, replay isn't possible with the
+yaml file, as Jenkins only includes the groovy files and the Jenkinsfile. Instead,
+you can change the call in the Jenkinsfile, adding a 3rd argument, a List of strings,
+like so:
+
+```groovy
+yamlPipelines(this, readYaml(file: 'jenkins-pipelines.yml'), [
+  'echo "Running sample commands in replay"',
+  'pwd',
+  'ls -la',
+])
+```
+Note: when replay commands are provided, all other commands in the
+jenkins-pipelines.yml file are ignored. The yml file is used to configure the
+docker build agent.

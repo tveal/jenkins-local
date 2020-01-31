@@ -50,6 +50,7 @@ local git server
 
 ```bash
 cd /tmp && git clone git://localhost/project-a
+cd /tmp && git clone git://localhost/yaml-pipelines-library
 ```
 
 On startup (aka, during `docker-compose up`), the git-server initiates git repos

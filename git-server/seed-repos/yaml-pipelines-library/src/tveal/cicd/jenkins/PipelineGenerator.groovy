@@ -1,14 +1,22 @@
 package tveal.cicd.jenkins
 
+class ReplayException extends Exception {
+    ReplayException(String msg) {
+        super(msg)
+    }
+}
+
 class PipelineGenerator {
     private final Script sc
     private final Map yaml
+    private List replay
     private final String cname
     private Map dockerEnv
 
-    PipelineGenerator(Script script, Map yaml) {
+    PipelineGenerator(Script script, Map yaml, List replay=[]) {
         this.sc = script
         this.yaml = yaml
+        this.replay = replay
         cname = "build-agent"
     }
 
@@ -54,6 +62,7 @@ class PipelineGenerator {
                 startDockerImage(cname,
                     "${yaml.docker.image}",
                     "${sc.env.WORKSPACE}")
+                runReplay()
             }
             yaml.pipelines.each { pipeKey, pipeVal ->
                 switch(pipeKey) {
@@ -96,6 +105,8 @@ class PipelineGenerator {
                         break;
                 }
             }
+        } catch(ReplayException e) {
+            sc.echo "Short-circuited pipeline due to replay"
         } catch(Exception e) {
             throw e
         } finally {
@@ -104,6 +115,18 @@ class PipelineGenerator {
             } catch (Exception e) {
                 sc.echo "Running Docker container not found to stop; Something probably failed before starting it."
             }
+        }
+    }
+
+    void runReplay() {
+        boolean hasReplay = this.replay.size() > 0
+        if (hasReplay) {
+            sc.echo 'Running Replay Commands...'
+            this.replay.each { cmd ->
+                runCmdInContainer(cname, "$cmd")
+            }
+            sc.echo 'Completed running replay commands.'
+            throw new ReplayException('Short-circuiting due to replay')
         }
     }
 
